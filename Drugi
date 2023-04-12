@@ -1,0 +1,85 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Učitavanje podataka
+mtcars = pd.read_csv('mtcars.csv')
+
+# Izračunavanje srednje potrošnje po broju cilindara
+mean_mpg = mtcars.groupby('cyl')['mpg'].mean()
+
+# Priprema podataka za prikaz na grafu
+cylinders = [4, 6, 8]
+mpg_means = [mean_mpg[4], mean_mpg[6], mean_mpg[8]]
+
+# Prikaz grafa
+plt.bar(cylinders, mpg_means, color=['blue', 'green', 'red'])
+plt.xlabel('Broj cilindara')
+plt.ylabel('Potrošnja (mpg)')
+plt.title('Potrošnja automobila po broju cilindara')
+plt.show()
+
+
+#2.
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Učitavanje podataka
+mtcars = pd.read_csv('mtcars.csv')
+
+# Razdvajanje podataka na automobile s 4, 6 i 8 cilindara
+mtcars_4 = mtcars[mtcars['cyl'] == 4]
+mtcars_6 = mtcars[mtcars['cyl'] == 6]
+mtcars_8 = mtcars[mtcars['cyl'] == 8]
+
+# Priprema podataka za prikaz na grafu
+data = [mtcars_4['wt'], mtcars_6['wt'], mtcars_8['wt']]
+labels = ['4 cilindra', '6 cilindra', '8 cilindra']
+
+# Prikaz grafa
+plt.boxplot(data, labels=labels)
+plt.xlabel('Broj cilindara')
+plt.ylabel('Težina (lbs)')
+plt.title('Distribucija težine automobila po broju cilindara')
+plt.show()
+
+
+#3.
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Učitavanje podataka
+mtcars = pd.read_csv('mtcars.csv')
+
+# Izdvajanje podataka za automobile s ručnim i automatskim mjenjačem
+manual_cars = mtcars[mtcars['am'] == 1]
+auto_cars = mtcars[mtcars['am'] == 0]
+
+# Prikaz grafa
+plt.hist([manual_cars['mpg'], auto_cars['mpg']], color=['blue', 'red'], label=['Ručni', 'Automatski'])
+plt.xlabel('Potrošnja (mpg)')
+plt.ylabel('Broj automobila')
+plt.title('Distribucija potrošnje po vrsti mjenjača')
+plt.legend()
+plt.show()
+
+# 4. 
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Učitavanje skupa podataka
+mtcars = pd.read_csv('mtcars.csv')
+
+# Podaci za scatter plot
+manual = mtcars[mtcars['am']==1]
+automatic = mtcars[mtcars['am']==0]
+
+# Ispis scatter plot-a
+plt.scatter(manual['hp'], manual['qsec'], color='blue', label='Manual')
+plt.scatter(automatic['hp'], automatic['qsec'], color='orange', label='Automatic')
+plt.xlabel('Horsepower')
+plt.ylabel('Quarter Mile Time (sec)')
+plt.title('Horsepower vs. Quarter Mile Time by Transmission')
+plt.legend()
+plt.show()
