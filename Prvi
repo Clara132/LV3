@@ -38,6 +38,11 @@ print("Automatski:", broj_automobila_automatski)
 
 # 6. Koliko je automobila s automatskim mjenjačem i snagom preko 100 konjskih snaga?
 
-broj_automobila_automatski_snaga = len(mtcars[(mtcars['am']==0) & (mtcars['hp']>100)])
-print("6. Koliko je automobila s automatskim mjenjačem i snagom preko 100 konjskih snaga?")
-print(broj
+snaga_preko_100 = mtcars['hp'] > 100
+automatski_snaga_preko_100 = mtcars[(mtcars['am'] == 0) & snaga_preko_100]
+print('Broj automobila s automatskim mjenjačem i snagom preko 100 konjskih snaga:', len(automatski_snaga_preko_100))
+
+# 7. Kolika je masa svakog automobila u kilogramima?
+
+mtcars['wt_kg'] = mtcars['wt'] * 0.453592
+print(mtcars[['model', 'wt_kg']])
