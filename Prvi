@@ -1,48 +1,44 @@
 import pandas as pd
-
-# Učitavanje podataka iz csv datoteke
+import numpy as np
 
 mtcars = pd.read_csv('mtcars.csv')
-
-# 1. Kojih 5 automobila ima najveću potrošnju? (koristite funkciju sort)
+print(len(mtcars))
+print(mtcars)
+print('\n')
 
 top_5_potrosnja = mtcars.sort_values(by=['mpg'], ascending=False).head(5)
 print("1. Kojih 5 automobila ima najveću potrošnju?")
-print(top_5_potrosnja[['car_name', 'mpg']])
-
-# 2. Koja tri automobila s 8 cilindara imaju najmanju potrošnju?
+print(top_5_potrosnja[['car', 'mpg']])
+print('\n')
 
 najmanja_potrosnja_8_cilindara = mtcars[mtcars['cyl']==8].sort_values(by=['mpg']).head(3)
 print("2. Koja tri automobila s 8 cilindara imaju najmanju potrošnju?")
-print(najmanja_potrosnja_8_cilindara[['car_name', 'mpg']])
+print(najmanja_potrosnja_8_cilindara[['car', 'mpg', 'cyl']])
+print('\n')
 
-# 3. Kolika je srednja potrošnja automobila sa 6 cilindara?
-
-srednja_potrosnja_6_cilindara = mtcars[mtcars['cyl']==6]['mpg'].mean()
+srednja_potrosnja_6_cilindara = mtcars[mtcars['cyl']==6]
 print("3. Kolika je srednja potrošnja automobila sa 6 cilindara?")
-print(srednja_potrosnja_6_cilindara)
+print(srednja_potrosnja_6_cilindara[['car', 'mpg', 'cyl']])
+srednja_potrosnja_6_cilindara = mtcars[mtcars['cyl']==6]['mpg'].mean()
+print('Srednja potrošnja:', srednja_potrosnja_6_cilindara)
+print('\n')
 
-# 4. Kolika je srednja potrošnja automobila s 4 cilindra mase između 2000 i 2200 lbs?
-
-srednja_potrosnja_4_cilindra = mtcars[(mtcars['cyl']==4) & (mtcars['wt'] >= 2000) & (mtcars['wt'] <= 2200)]['mpg'].mean()
+srednja_potrosnja_4_cilindara = mtcars[mtcars['cyl']==4]
 print("4. Kolika je srednja potrošnja automobila s 4 cilindra mase između 2000 i 2200 lbs?")
-print(srednja_potrosnja_4_cilindra)
+print(srednja_potrosnja_4_cilindara[['car', 'mpg', 'cyl']])
+srednja_potrosnja_4_cilindara = mtcars[(mtcars['cyl']==4) & (mtcars['wt'] > 2.000) & (mtcars['wt'] < 2.200)]['mpg'].mean()
+print('Srednja potrošnja automobila s 4 cilindra mase između 2000 i 2200 lbs:', srednja_potrosnja_4_cilindara)
+print('\n')
 
-# 5. Koliko je automobila s ručnim, a koliko s automatskim mjenjačem u ovom skupu podataka?
-
-broj_automobila_rucni = len(mtcars[mtcars['am']==1])
-broj_automobila_automatski = len(mtcars[mtcars['am']==0])
 print("5. Koliko je automobila s ručnim, a koliko s automatskim mjenjačem u ovom skupu podataka?")
-print("Ručni:", broj_automobila_rucni)
-print("Automatski:", broj_automobila_automatski)
+print('Automatski mijenjac:', mtcars[mtcars['am']==1]['am'].count())
+print('Rucni mijenjac:', mtcars[mtcars['am']==0]['am'].count())
+print('\n')
 
-# 6. Koliko je automobila s automatskim mjenjačem i snagom preko 100 konjskih snaga?
+print("6. Koliko je automobila s automatskim mjenjačem i snagom preko 100 konjskih snaga?")
+print('Automobili s automatskim mjenjacem i snagom preko 100 konjskih snaga:', mtcars[(mtcars['am']==1) & (mtcars.hp > 100)]['am'].count())
+print('\n')
 
-snaga_preko_100 = mtcars['hp'] > 100
-automatski_snaga_preko_100 = mtcars[(mtcars['am'] == 0) & snaga_preko_100]
-print('Broj automobila s automatskim mjenjačem i snagom preko 100 konjskih snaga:', len(automatski_snaga_preko_100))
-
-# 7. Kolika je masa svakog automobila u kilogramima?
-
+print("7. Kolika je masa svakog automobila u kilogramima?")
 mtcars['wt_kg'] = mtcars['wt'] * 0.453592
-print(mtcars[['model', 'wt_kg']])
+print('Masa svakog automobila u kilogramima:\n', mtcars[['wt_kg', 'car']])
